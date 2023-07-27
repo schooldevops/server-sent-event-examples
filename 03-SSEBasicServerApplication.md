@@ -222,4 +222,8 @@ data:dog.
 - SpringBoot Web 을 이용해서 서버 푸시를 작성했으며, 별도의 의존성 라이브러리 없이 표준으로 SSE 를 작성할 수 있었다. 
 - SseEmitter 는 클라이언트 요청마다 새로 생성하며, 이를 통해서 메시지를 전송할 수 있음을 알수 있었다. 
 - SSE는 정상적으로 메시지를 보내기 위해서 send() 메소드를, 연결을 종료하기 위해서 complete() 메소드를, 그리고 예외사항인경우 completeWithError(e) 메소드를 이용하여 클라이언트로 푸시 할 수 있다. 
-- 관련 소스는: 
+- 관련 소스는: https://github.com/schooldevops/server-sent-event-examples/blob/main/sse-demo/README.md 에서 확인할 수 있다. 
+
+## 참고
+
+- https://github.com/aliakh/demo-spring-sse/blob/master/README.md
