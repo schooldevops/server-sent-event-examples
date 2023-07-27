@@ -1,33 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Server-Sent Events client example with EventSource</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Server Sent Event 테스트 클라이언트</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
 <body>
-<script>
-    if (window.EventSource == null) {
-        alert('The browser does not support Server-Sent Events');
-    } else {
-        var eventSource = new EventSource('/words');
+    <script>
+        if (window.EventSource == null) {
+            const text = 'The browser does not support Server-Sent Events';
+            alert(text);
+            const elem = document.getElementById('text-item');
+            const newP = document.createElement("p");
+            newP.setAttribute('class', 'text-start text-secondary')
+            newP.appendChild(document.createTextNode(text));
+            elem.appendChild(newP);
+        } else {
+            var eventSource = new EventSource('/words');
 
-        eventSource.onopen = function () {
-            console.log('connection is established');
-        };
+            eventSource.onopen = function () {
+                const text = 'connection is established';
+                console.log(text);
 
-        eventSource.onerror = function (error) {
-            console.log('connection state: ' + eventSource.readyState + ', error: ' + event);
-        };
+                const elem = document.getElementById('text-item');
+                const newP = document.createElement("p");
+                newP.setAttribute('class', 'text-start text-success-emphasis')
+                newP.appendChild(document.createTextNode(text));
+                elem.appendChild(newP);
+            };
 
-        eventSource.onmessage = function (event) {
-            console.log('id: ' + event.lastEventId + ', data: ' + event.data);
+            eventSource.onerror = function (error) {
+                const text = 'connection state: ' + eventSource.readyState + ', error: ' + event;
+                console.log(text);
 
-            if (event.data.endsWith('.')) {
-                eventSource.close();
-                console.log('connection is closed');
-            }
-        };
-    }
-</script>
+                const elem = document.getElementById('text-item');
+                const newP = document.createElement("p");
+                newP.setAttribute('class', 'text-start text-danger')
+                newP.appendChild(document.createTextNode(text));
+                elem.appendChild(newP);
+            };
+
+            eventSource.onmessage = function (event) {
+
+                const text = 'id: ' + event.lastEventId + ', data: ' + event.data;
+                console.log(text);
+
+                const elem = document.getElementById('text-item');
+                const newP = document.createElement("p");
+                newP.setAttribute('class', 'text-center text-primary')
+                newP.appendChild(document.createTextNode(text));
+                elem.appendChild(newP);
+
+                if (event.data.endsWith('.')) {
+                    eventSource.close();
+
+                    const text = 'connection is closed';
+                    console.log(text);
+
+                    const elem = document.getElementById('text-item');
+                    const newP = document.createElement("p");
+                    newP.setAttribute('class', 'text-start text-warning')
+                    newP.appendChild(document.createTextNode(text));
+                    elem.appendChild(newP);
+                }
+            };
+        }
+    </script>
+
+    <div class="container">
+        <div class="row">
+            <div class="col" id="text-item">
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+
 </body>
 </html>
